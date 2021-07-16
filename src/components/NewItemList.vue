@@ -25,7 +25,7 @@ export default {
   methods: {
     detailshow(index) {
       this.$router.push({
-        name: "ProductSimple",
+        name: "ProductPage",
         params: {
           contentId: index
         }
