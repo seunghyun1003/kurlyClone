@@ -1,6 +1,5 @@
 <template>
   <div id="productpage">
-    제품 상세 페이지
     <ProductSimple></ProductSimple>
     <ProductDetail></ProductDetail>
   </div>
@@ -19,4 +18,8 @@ export default {
 </script>
 
 <style>
+#productpage {
+  margin: 2em auto;
+  width: 1000px;
+}
 </style>

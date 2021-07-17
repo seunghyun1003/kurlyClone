@@ -1,26 +1,22 @@
 <template>
   <div id="newitemlist">
-    <div class="newitem" :key="index" v-for="(value, index) in data" @click="detailshow(index)">
+    <div class="newitem" :key="index" v-for="(product, index) in $store.state.products" @click="detailshow(index)">
       <div class="product-img">
-        <img v-bind:src="value.img" />
+        <img v-bind:src="product.img" />
       </div>
       <div class="product-info">
-        <li class="product-info-title">{{ value.title }}</li>
-        <li class="product-info-price">{{ value.price }}</li>
+        <li class="product-info-title">{{ product.title }}</li>
+        <li class="product-info-price">{{ product.price }}</li>
       </div>
     </div>
+
   </div>
 </template>
 
 <script>
-import data from "@/data";
-
 export default {
   name: "NewItemList",
   data() {
-    return {
-      data: data
-    };
   },
   methods: {
     detailshow(index) {
@@ -35,7 +31,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 #newitemlist {
   display: flex;
   width: 1000px;

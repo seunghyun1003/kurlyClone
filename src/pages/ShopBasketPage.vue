@@ -1,6 +1,5 @@
 <template>
   <div id="shopbasketpage">
-    장바구니 페이지
     <AddedProductList></AddedProductList>
     <Form></Form>
   </div>
