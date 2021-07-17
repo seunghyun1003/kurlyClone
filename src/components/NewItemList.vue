@@ -18,6 +18,7 @@ export default {
   name: "NewItemList",
   data() {
   },
+  props: ['product'],
   methods: {
     detailshow(index) {
       this.$router.push({

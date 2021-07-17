@@ -9,7 +9,7 @@
         <th>수량</th>
       </tr>
       <tr v-for="product in products" :key="product.id">
-        <td>{{ product.name }}</td>
+        <td>{{ product.title }}</td>
         <td>{{ product.price }}</td>
         <td>{{ product.quantity }}</td>
       </tr>
