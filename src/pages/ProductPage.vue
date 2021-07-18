@@ -1,6 +1,6 @@
 <template>
-  <div id="productpage" >
-    <div id="productsimple" >
+  <div id="productpage">
+    <div id="productsimple">
       <div class="product-img">
         <img src="../assets/images/dogfood.jpg" alt />
       </div>
@@ -10,58 +10,32 @@
           <li class="des" v-text="product.description"></li>
           <li class="price">{{ product.price }}원</li>
         </ul>
-        <div>
-          남은 수량 : {{ product.inventory }}개
-        </div>
-        <div>
-          <button
-            type="button"
-            @click="addProductToCart(product)"
-          >장바구니 담기</button>
-        </div>
+        <div>남은 수량 : {{ product.inventory }}개</div>
+        <EditQuantity v-bind:product="product"></EditQuantity>
         <div class="total">총합계 : {{ $store.getters.cartTotal }}원</div>
       </div>
     </div>
-    <div id="productdetail">
-      <b-card no-body>
-        <b-tabs card>
-          <b-tab no-body title="상품설명">
-            <b-card-img bottom src="https://picsum.photos/600/200/?image=21" alt="Image 21"></b-card-img>
-          </b-tab>
-          <b-tab no-body title="상세정보">
-            <b-card-img bottom src="https://picsum.photos/600/200/?image=25" alt="Image 25"></b-card-img>
-          </b-tab>
-          <b-tab title="Text">
-            <b-card-title>This tab does not have the <code>no-body</code> prop set</b-card-title>
-            <b-card-text>
-              Quis magna Lorem anim amet ipsum do mollit sit cillum voluptate ex nulla tempor. Laborum
-              consequat non elit enim exercitation cillum aliqua consequat id aliqua. Esse ex
-              consectetur mollit voluptate est in duis laboris ad sit ipsum anim Lorem. Incididunt
-              veniam velit elit elit veniam Lorem aliqua quis ullamco deserunt sit enim elit aliqua
-              esse irure.
-            </b-card-text>
-          </b-tab>
-        </b-tabs>
-      </b-card>
-    </div>
+
+    <div id="productdetail"></div>
   </div>
 </template>
 
 <script>
+import EditQuantity from "@/components/EditQuantity.vue";
+import ProductPage from "@/pages/ProductPage.vue";
 export default {
   name: "ProductPage",
+  components: {
+    EditQuantity,
+    ProductPage
+  },
   data() {
-    const index = this.$route.params.contentId
-    return{
-        product: this.$store.state.products[index],
-    }
-  },
-  methods: {
-    addProductToCart(product) {
-      this.$store.dispatch("addProductToCart", product);
-    }
-  },
-}
+    const index = this.$route.params.contentId;
+    return {
+      product: this.$store.state.products[index]
+    };
+  }
+};
 </script>
 
 <style scoped>
@@ -69,7 +43,7 @@ export default {
   margin: 2em auto;
   width: 1000px;
 }
-#productsimple{
+#productsimple {
   display: flex;
   flex-direction: row;
 }
@@ -86,6 +60,7 @@ export default {
   padding: 1em 3em;
   text-align: left;
   font-weight: 600;
+  width: 600px;
 }
 .product-simpleinfo .title,
 .product-simpleinfo .price {
@@ -96,8 +71,11 @@ export default {
   color: gray;
   padding-bottom: 2em;
 }
-#productdetail{
+.product-simpleinfo .total {
+  font-size: 1.6em;
+  text-align: right;
+}
+#productdetail {
   margin-top: 2em;
 }
 </style>
-

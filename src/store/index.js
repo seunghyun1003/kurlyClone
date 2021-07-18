@@ -56,20 +56,29 @@ export const store = new Vuex.Store({
                 inventory: 0,
             },
         ],
-        counter: 0,
         cart: []
     },
     actions: {
-        addProductToCart({state, commit}, product) {
+        addOrder({state, commit}, product) {
         	//제품의 남은 수량이 있을 경우
             if ( product.inventory > 0 ) { 
                 const cartItem = state.cart.find(item => item.id === product.id);
                 if (!cartItem) {
                     commit('pushProductToCart', product.id); //추가할 제품이 쇼핑 카트의 제품과 일치하지 않을 경우, 장바구니에 새로 추가
                 } else {
-                    commit('incrementItemQuantity', cartItem); //일치할 경우, 쇼핑 카트의 제품 수량을 증가
+                    if (cartItem.quantity < product.inventory){
+                    commit('incrementItemQuantity', cartItem); //일치할 경우, 쇼핑 카트의 제품 수량을 증가}
+                    }
                 }
                 commit('decrementProductInventory', product); //남은 수량 -1
+            }
+        },
+        subOrder({state, commit}, product) {
+        	//쇼핑 카트에 담긴 아이템이 있을 경우
+            const cartItem = state.cart.find(item => item.id === product.id);
+            if (cartItem.quantity > 0) {
+            commit('decrementItemQuantity', cartItem); //쇼핑 카트의 제품 수량 -1
+            commit('incrementProductInventory', product); //남은 수량 +1
             }
         }
     },
@@ -86,20 +95,29 @@ export const store = new Vuex.Store({
             cartItem.quantity++;
         },
         //쇼핑 카트의 아이템 수량 감소
+        decrementItemQuantity(state, cartItem) { 
+            cartItem.quantity--;
+        },
+        // 아이템의 남은 수량 증가
+        incrementProductInventory(state, product) { 
+            product.inventory++;
+        },
+        // 아이템의 남은 수량 감소
         decrementProductInventory(state, product) { 
             product.inventory--;
-        }
+        },
     },
     getters: {
         cartProducts(state) {
             return state.cart.map(cartItem => {
                 const product = state.products.find(product => product.id === cartItem.id);
                 return {
-                id: product.id,
-                title: product.title,
-                price: product.price,
-                quantity: cartItem.quantity,
-                img: product.img,
+                    id: product.id,
+                    title: product.title,
+                    price: product.price,
+                    inventory: product.inventory,
+                    quantity: cartItem.quantity,
+                    img: product.img,
                 };
             });
         },

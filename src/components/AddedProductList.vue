@@ -21,7 +21,7 @@
             <img src="../assets/images/dogfood.jpg" />
             <div class="shopped-title">{{ cartproduct.title }}</div>
           </div>
-          <div class="shopped-quantity">{{ cartproduct.quantity }}개</div>
+          <EditQuantity v-bind:product="cartproduct"></EditQuantity>
           <div class="shopped-total">{{ $store.getters.cartTotal }}원</div>
         </div>
       </div>
@@ -30,8 +30,20 @@
 </template>
 
 <script>
+import EditQuantity from "@/components/EditQuantity.vue";
 export default {
-  name: "AddedProductList"
+  name: "AddedProductList",
+  components: {
+    EditQuantity
+  },
+  methods: {
+    addOrder(cartproduct) {
+      this.$store.dispatch("addOrder", cartproduct);
+    },
+    subOrder(cartproduct) {
+      this.$store.dispatch("subOrder", cartproduct);
+    }
+  }
 };
 </script>
 
@@ -48,8 +60,7 @@ export default {
   display: flex;
   font-weight: 600;
   font-size: 600;
-  line-height: 5em;
-  height: 5em;
+  height: 6em;
   padding: 0.5em;
 }
 .shopped-imgtitle {
@@ -62,8 +73,12 @@ export default {
   height: 80px;
   margin-right: 1.6em;
 }
-.shopped-quantity,
+.shopped-imgtitle .shopped-title {
+  margin: 2em 0;
+}
 .shopped-total {
   flex-basis: 20%;
+  margin: 2em 0;
+  text-align: center;
 }
 </style>
