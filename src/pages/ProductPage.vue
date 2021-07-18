@@ -2,7 +2,7 @@
   <div id="productpage" >
     <div id="productsimple" >
       <div class="product-img">
-        <img v-bind:src="product.img" alt />
+        <img src="../assets/images/dogfood.jpg" alt />
       </div>
       <div class="product-simpleinfo">
         <ul>
@@ -10,10 +10,16 @@
           <li class="des" v-text="product.description"></li>
           <li class="price">{{ product.price }}원</li>
         </ul>
-        <button @click="addProductToCart(product)">
-          카트 추가
-        </button>
-        <div class="total">총합계</div>
+        <div>
+          남은 수량 : {{ product.inventory }}개
+        </div>
+        <div>
+          <button
+            type="button"
+            @click="addProductToCart(product)"
+          >장바구니 담기</button>
+        </div>
+        <div class="total">총합계 : {{ $store.getters.cartTotal }}원</div>
       </div>
     </div>
     <div id="productdetail">
@@ -22,11 +28,9 @@
           <b-tab no-body title="상품설명">
             <b-card-img bottom src="https://picsum.photos/600/200/?image=21" alt="Image 21"></b-card-img>
           </b-tab>
-
           <b-tab no-body title="상세정보">
             <b-card-img bottom src="https://picsum.photos/600/200/?image=25" alt="Image 25"></b-card-img>
           </b-tab>
-
           <b-tab title="Text">
             <b-card-title>This tab does not have the <code>no-body</code> prop set</b-card-title>
             <b-card-text>
@@ -47,7 +51,7 @@
 export default {
   name: "ProductPage",
   data() {
-    const index = this.$route.params.contentId;
+    const index = this.$route.params.contentId
     return{
         product: this.$store.state.products[index],
     }
@@ -56,8 +60,8 @@ export default {
     addProductToCart(product) {
       this.$store.dispatch("addProductToCart", product);
     }
-  }
-};
+  },
+}
 </script>
 
 <style scoped>

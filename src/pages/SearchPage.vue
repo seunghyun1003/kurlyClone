@@ -7,15 +7,15 @@
 </template>
 
 <script>
-import SearchRequire from "@/components/SearchRequire.vue";
-import SearchResult from "@/components/SearchResult.vue";
+import SearchRequire from "@/components/SearchRequire.vue"
+import SearchResult from "@/components/SearchResult.vue"
 export default {
   name: "SearchPage",
   components: {
     SearchRequire,
-    SearchResult
-  }
-};
+    SearchResult,
+  },
+}
 </script>
 
 <style>

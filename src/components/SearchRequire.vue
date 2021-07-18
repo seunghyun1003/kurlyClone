@@ -7,7 +7,7 @@ export default {
   name: "SearchRequire",
   data() {},
   methods: {}
-};
+}
 </script>
 
 <style>

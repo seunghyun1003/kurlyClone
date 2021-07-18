@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import BestProductList from "@/components/BestProductList.vue";
+import BestProductList from "@/components/BestProductList.vue"
 export default {
   name: "BestPage",
   components: {

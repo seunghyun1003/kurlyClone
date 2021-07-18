@@ -6,7 +6,7 @@ import router from './router'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
-import { store } from './store/index.js';
+import { store } from './store'
 
 Vue.use(BootstrapVue)
 Vue.use(IconsPlugin)
@@ -18,5 +18,5 @@ new Vue({
   router,
   components: { App },
   template: '<App/>',
-  store
+  store: store,
 })

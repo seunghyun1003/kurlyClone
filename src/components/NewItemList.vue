@@ -17,6 +17,9 @@
 export default {
   name: "NewItemList",
   data() {
+    return {
+      
+    }
   },
   props: ['product'],
   methods: {
@@ -26,10 +29,10 @@ export default {
         params: {
           contentId: index
         }
-      });
+      })
     }
   }
-};
+}
 </script>
 
 <style scoped>

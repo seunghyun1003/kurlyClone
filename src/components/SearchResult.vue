@@ -7,7 +7,7 @@ export default {
   name: "SearchResult",
   data() {},
   methods: {}
-};
+}
 </script>
 
 <style>

@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import NewItemList from "@/components/NewItemList.vue";
+import NewItemList from "@/components/NewItemList.vue"
 export default {
   name: "MainPage",
   components: {
@@ -19,7 +19,7 @@ export default {
 .second-title {
   font-size: 1.6em;
   font-weight: bold;
-  line-height: 6em;
-  height: 6em;
+  line-height: 4em;
+  height: 4em;
 }
 </style>
