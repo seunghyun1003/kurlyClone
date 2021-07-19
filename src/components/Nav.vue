@@ -11,8 +11,18 @@
       </div>
       <div class="nav-item">
         <div class="search-form">
-          <b-form-input size="sm" class="mr-sm-2" placeholder="Search"></b-form-input>
-          <b-button size="sm" class="my-2 my-sm-0" type="submit">
+          <b-form-input
+            size="sm"
+            class="mr-sm-2"
+            placeholder="Search"
+          ></b-form-input>
+          <b-button
+            router-link
+            to="/searchpage"
+            size="sm"
+            class="my-2 my-sm-0"
+            type="submit"
+          >
             <b-icon icon="search"></b-icon>
           </b-button>
         </div>

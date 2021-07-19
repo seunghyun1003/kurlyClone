@@ -16,18 +16,54 @@
       </div>
     </div>
 
-    <div id="productdetail"></div>
+    <div id="productdetail">
+      <b-card no-body>
+        <b-tabs card>
+          <b-tab no-body title="상품설명">
+            <img
+              bottom
+              src="../assets/images/dogfood-info.jpg"
+              alt="Image 21"
+            ></img>
+            <img
+              bottom
+              src="../assets/images/dogfood-info2.jpg"
+              alt="Image 21"
+            ></img>
+          </b-tab>
+          <b-tab no-body title="상세정보">
+            <img
+              bottom
+              src="../assets/images/dogfood-detail.jpg"
+              alt="Image 25"
+            ></img>
+          </b-tab>
+          <b-tab title="후기">
+            <b-card-title
+              >This tab does not have the <code>no-body</code> prop
+              set</b-card-title
+            >
+            <b-card-text>
+              Quis magna Lorem anim amet ipsum do mollit sit cillum voluptate ex
+              nulla tempor. Laborum consequat non elit enim exercitation cillum
+              aliqua consequat id aliqua. Esse ex consectetur mollit voluptate
+              est in duis laboris ad sit ipsum anim Lorem. Incididunt veniam
+              velit elit elit veniam Lorem aliqua quis ullamco deserunt sit enim
+              elit aliqua esse irure.
+            </b-card-text>
+          </b-tab>
+        </b-tabs>
+      </b-card>
+    </div>
   </div>
 </template>
 
 <script>
 import EditQuantity from "@/components/EditQuantity.vue";
-import ProductPage from "@/pages/ProductPage.vue";
 export default {
   name: "ProductPage",
   components: {
-    EditQuantity,
-    ProductPage
+    EditQuantity
   },
   data() {
     const index = this.$route.params.contentId;
@@ -77,5 +113,9 @@ export default {
 }
 #productdetail {
   margin-top: 2em;
+}
+#productdetail .tab-content {
+  width: 1000px;
+  height: auto;
 }
 </style>

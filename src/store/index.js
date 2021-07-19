@@ -13,6 +13,7 @@ export const store = new Vuex.Store({
                 description: "수제 강아지 사료입니다.",
                 price: 15000,
                 img: "../assets/images/dogfood.jpg",
+                infoimg: "../assets/images/dogfood-info.jpg",
                 inventory: 10,
             },
             {
@@ -59,6 +60,7 @@ export const store = new Vuex.Store({
         cart: []
     },
     actions: {
+        //'+'버튼 클릭 시
         addOrder({state, commit}, product) {
         	//제품의 남은 수량이 있을 경우
             if ( product.inventory > 0 ) { 
@@ -73,6 +75,7 @@ export const store = new Vuex.Store({
                 commit('decrementProductInventory', product); //남은 수량 -1
             }
         },
+        //'-'버튼 클릭 시
         subOrder({state, commit}, product) {
         	//쇼핑 카트에 담긴 아이템이 있을 경우
             const cartItem = state.cart.find(item => item.id === product.id);
