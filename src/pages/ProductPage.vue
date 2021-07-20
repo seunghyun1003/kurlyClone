@@ -26,17 +26,27 @@
           <b-tab no-body title="상세정보">
             <img v-bind:src="product.detailimg2"></img>
           </b-tab>
+          <!-- 리뷰 뷰어 -->
           <b-tab title="후기">
             <ul style="text-align:left;">
               <li><b-icon-check></b-icon-check>상품에 대한 문의를 남기는 공간입니다.</li>
             </ul>
+            <!-- 리뷰 뷰어 헤더 -->
             <div class="review-item-header">
               <div class="review-item-producttitle"> 제품명 </div>
               <div class="review-item-reviewetitle"> 제목 </div>
               <div class="review-item-reviewer"> 작성자 </div>
               <div class="review-item-reviewedate"> 작성일 </div>
             </div>
+            <!-- 리뷰 뷰어 아이템 -->
             <div 
+              v-if="$store.getters.getproductReview(product).length === 0"
+              class="review-item-none"
+            >
+              "{{product.title}}"상품에 댓글이 아직 없습니다.
+            </div>
+            <div 
+              v-else
               class="review-item"
               v-for="review in $store.getters.getproductReview(product)"
             >
@@ -126,6 +136,11 @@ export default {
   border-top: 2px solid purple;
   border-bottom: 1px solid lightgray;
   font-weight: 600;
+}
+.review-item-none{
+  padding: 1.75em 0;
+  font-size: 0.85em;
+  border-bottom: 1px solid lightgray;
 }
 .review-item{
   border-bottom: 1px solid lightgray;
