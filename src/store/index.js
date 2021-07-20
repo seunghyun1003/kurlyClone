@@ -12,8 +12,10 @@ export const store = new Vuex.Store({
                 title: "강아지 사료",
                 description: "수제 강아지 사료입니다.",
                 price: 15000,
-                img: "../assets/images/dogfood.jpg",
-                infoimg: "../assets/images/dogfood-info.jpg",
+                productimg: require("../assets/images/dogfood.jpg"),
+                infoimg: require("../assets/images/dogfood-info.jpg"),
+                infoimg2: require("../assets/images/dogfood-info2.jpg"),
+                detailimg2: require("../assets/images/dogfood-detail.jpg"),
                 inventory: 10,
             },
             {
@@ -21,7 +23,8 @@ export const store = new Vuex.Store({
                 title: "고양이 사료",
                 description: "수제 고양이 사료입니다.",
                 price: 20000,
-                img: "../assets/images/dogfood.jpg",
+                productimg: require("../assets/images/dogfood.jpg"),
+                infoimg: require("../assets/images/dogfood-info.jpg"),
                 inventory: 10,
             },
             {
@@ -29,7 +32,8 @@ export const store = new Vuex.Store({
                 title: "새 사료",
                 description: "수제 새 사료입니다.",
                 price: 5000,
-                img: "../assets/images/dogfood.jpg",
+                productimg: require("../assets/images/dogfood.jpg"),
+                infoimg: require("../assets/images/dogfood-info.jpg"),
                 inventory: 1,
             },
             {
@@ -37,7 +41,8 @@ export const store = new Vuex.Store({
                 title: "미어캣 사료",
                 description: "수제 미어캣 사료입니다.",
                 price: 25000,
-                img: "../assets/images/dogfood.jpg",
+                productimg: require("../assets/images/dogfood.jpg"),
+                infoimg: require("../assets/images/dogfood-info.jpg"),
                 inventory: 2,
             },
             {
@@ -45,7 +50,8 @@ export const store = new Vuex.Store({
                 title: "햄스터 사료",
                 description: "수제 햄스터 사료입니다.",
                 price: 10000,
-                img: "../assets/images/dogfood.jpg",
+                productimg: require("../assets/images/dogfood.jpg"),
+                infoimg: require("../assets/images/dogfood-info.jpg"),
                 inventory: 30,
             },
             {
@@ -53,11 +59,42 @@ export const store = new Vuex.Store({
                 title: "거북이 사료",
                 description: "수제 거북이 사료입니다.",
                 price: 2000,
-                img: "../assets/images/dogfood.jpg",
+                productimg: require("../assets/images/dogfood.jpg"),
+                infoimg: require("../assets/images/dogfood-info.jpg"),
                 inventory: 0,
             },
         ],
-        cart: []
+        cart: [],
+        reviews: [
+            {
+                productId: 0,
+                reviewId : 0,
+                reviewtitle: "견왈 : 좋아요!",
+                reviewer: "조",
+                reviewedate: "21.07.19",
+            },
+            {
+                productId: 0,
+                reviewId : 1,
+                reviewtitle: "개가 싫어해요.",
+                reviewer: "김",
+                reviewedate: "21.07.19",
+            },
+            {
+                productId: 1,
+                reviewId : 2,
+                reviewtitle: "고양이가 잘 먹네요!",
+                reviewer: "이",
+                reviewedate: "21.07.20",
+            },
+            {
+                productId: 2,
+                reviewId : 3,
+                reviewtitle: "새가 좋아해요.",
+                reviewer: "박",
+                reviewedate: "21.07.21",
+            }
+        ],
     },
     actions: {
         //'+'버튼 클릭 시
@@ -68,8 +105,8 @@ export const store = new Vuex.Store({
                 if (!cartItem) {
                     commit('pushProductToCart', product.id); //추가할 제품이 쇼핑 카트의 제품과 일치하지 않을 경우, 장바구니에 새로 추가
                 } else {
-                    if (cartItem.quantity < product.inventory){
-                    commit('incrementItemQuantity', cartItem); //일치할 경우, 쇼핑 카트의 제품 수량을 증가}
+                    if (product.inventory > 0){
+                        commit('incrementItemQuantity', cartItem); //일치할 경우, 쇼핑 카트의 제품 수량을 증가}
                     }
                 }
                 commit('decrementProductInventory', product); //남은 수량 -1
@@ -120,7 +157,7 @@ export const store = new Vuex.Store({
                     price: product.price,
                     inventory: product.inventory,
                     quantity: cartItem.quantity,
-                    img: product.img,
+                    productimg: product.productimg,
                 };
             });
         },
@@ -130,6 +167,9 @@ export const store = new Vuex.Store({
                 total += cartItem.price * cartItem.quantity;
             });
             return total;
-        }
+        },
+        getproductReview:(state) => (productItem) => {
+            return state.reviews.filter(reviewItem => reviewItem.productId === productItem.id);
+        },
     },
 })

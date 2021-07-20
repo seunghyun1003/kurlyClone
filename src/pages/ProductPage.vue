@@ -20,37 +20,31 @@
       <b-card no-body>
         <b-tabs card>
           <b-tab no-body title="상품설명">
-            <img
-              bottom
-              src="../assets/images/dogfood-info.jpg"
-              alt="Image 21"
-            ></img>
-            <img
-              bottom
-              src="../assets/images/dogfood-info2.jpg"
-              alt="Image 21"
-            ></img>
+            <img v-bind:src="product.infoimg"></img>
+            <img v-bind:src="product.infoimg2"></img>
           </b-tab>
           <b-tab no-body title="상세정보">
-            <img
-              bottom
-              src="../assets/images/dogfood-detail.jpg"
-              alt="Image 25"
-            ></img>
+            <img v-bind:src="product.detailimg2"></img>
           </b-tab>
           <b-tab title="후기">
-            <b-card-title
-              >This tab does not have the <code>no-body</code> prop
-              set</b-card-title
+            <ul style="text-align:left;">
+              <li><b-icon-check></b-icon-check>상품에 대한 문의를 남기는 공간입니다.</li>
+            </ul>
+            <div class="review-item-header">
+              <div class="review-item-producttitle"> 제품명 </div>
+              <div class="review-item-reviewetitle"> 제목 </div>
+              <div class="review-item-reviewer"> 작성자 </div>
+              <div class="review-item-reviewedate"> 작성일 </div>
+            </div>
+            <div 
+              class="review-item"
+              v-for="review in $store.getters.getproductReview(product)"
             >
-            <b-card-text>
-              Quis magna Lorem anim amet ipsum do mollit sit cillum voluptate ex
-              nulla tempor. Laborum consequat non elit enim exercitation cillum
-              aliqua consequat id aliqua. Esse ex consectetur mollit voluptate
-              est in duis laboris ad sit ipsum anim Lorem. Incididunt veniam
-              velit elit elit veniam Lorem aliqua quis ullamco deserunt sit enim
-              elit aliqua esse irure.
-            </b-card-text>
+              <div class="review-item-producttitle">{{ product.title }}</div>
+              <div class="review-item-reviewetitle">{{ review.reviewtitle }}</div>
+              <div class="review-item-reviewer">{{ review.reviewer }}</div>
+              <div class="review-item-reviewedate">{{ review.reviewedate }}</div>
+            </div>
           </b-tab>
         </b-tabs>
       </b-card>
@@ -112,10 +106,40 @@ export default {
   text-align: right;
 }
 #productdetail {
-  margin-top: 2em;
+  margin-top: 3em;
 }
 #productdetail .tab-content {
   width: 1000px;
   height: auto;
+}
+#productdetail img {
+  width: 1000px;
+  height: auto;
+}
+.review-item-header, .review-item{
+  display:flex;
+  width: 100%;
+  padding: 1.75em 0;
+  font-size: 0.85em;
+}
+.review-item-header{
+  border-top: 2px solid purple;
+  border-bottom: 1px solid lightgray;
+  font-weight: 600;
+}
+.review-item{
+  border-bottom: 1px solid lightgray;
+}
+.review-item-producttitle{
+  flex-basis: 30%;
+}
+.review-item-reviewetitle{
+  flex-basis: 40%;
+}
+.review-item > .review-item-reviewetitle{
+  text-align: left;
+}
+.review-item-reviewer, .review-item-reviewedate{
+  flex-basis: 15%;
 }
 </style>

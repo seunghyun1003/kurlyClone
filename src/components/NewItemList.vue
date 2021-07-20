@@ -1,15 +1,19 @@
 <template>
   <div id="newitemlist">
-    <div class="newitem" :key="index" v-for="(product, index) in $store.state.products" @click="detailshow(index)">
+    <div
+      class="newitem"
+      :key="index"
+      v-for="(product, index) in $store.state.products"
+      @click="detailshow(index)"
+    >
       <div class="product-img">
-        <img v-bind:src="product.img" />
+        <img v-bind:src="product.productimg" />
       </div>
       <div class="product-info">
         <li class="product-info-title">{{ product.title }}</li>
         <li class="product-info-price">{{ product.price }}</li>
       </div>
     </div>
-
   </div>
 </template>
 
@@ -17,11 +21,9 @@
 export default {
   name: "NewItemList",
   data() {
-    return {
-      
-    }
+    return {};
   },
-  props: ['product'],
+  props: ["product"],
   methods: {
     detailshow(index) {
       this.$router.push({
@@ -29,10 +31,10 @@ export default {
         params: {
           contentId: index
         }
-      })
+      });
     }
   }
-}
+};
 </script>
 
 <style scoped>
