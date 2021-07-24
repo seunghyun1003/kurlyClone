@@ -21,10 +21,19 @@
             <img src="../assets/images/dogfood.jpg" />
             <div class="shopped-title">{{ cartproduct.title }}</div>
           </div>
-          <EditQuantity v-bind:product="cartproduct"></EditQuantity>
-          <div class="shopped-price">
-            {{ $store.getters.getcartProducts[cartproduct].itemtotalprice }}원
+          <div id="editquantity">
+            <button @click="subOrder(cartproduct)">-</button>
+            <div>
+              {{ cartproduct.quantity }}
+            </div>
+            <button @click="addOrder(cartproduct)">+</button>
           </div>
+          <div class="shopped-price">
+            {{ cartproduct.itemtotalprice }}원
+          </div>
+        </div>
+        <div class="shopped-total">
+          총 가격 :  {{ $store.getters.cartTotal }}원
         </div>
       </div>
     </div>
@@ -32,12 +41,8 @@
 </template>
 
 <script>
-import EditQuantity from "@/components/EditQuantity.vue";
 export default {
   name: "AddedProductList",
-  components: {
-    EditQuantity
-  },
   methods: {
     addOrder(cartproduct) {
       this.$store.dispatch("addOrder", cartproduct);
@@ -64,6 +69,7 @@ export default {
   font-size: 600;
   height: 6em;
   padding: 0.5em;
+  border-bottom: 1px solid lightgray;
 }
 .shopped-imgtitle {
   flex-basis: 60%;
@@ -78,9 +84,35 @@ export default {
 .shopped-imgtitle .shopped-title {
   margin: 2em 0;
 }
-.shopped-total {
+.shopped-price {
   flex-basis: 20%;
   margin: 2em 0;
+  text-align: center;
+}
+.shopped-total {
+  width: 100%;
+  margin: 2em 0;
+  padding: 0 2em;
+  font-weight: 600;
+  font-size: large;
+  text-align: right;
+}
+
+#editquantity {
+  flex-basis: 20%;
+  display: flex;
+  max-width: 80px;
+  border: 1px solid lightgray;
+  height: 2em;
+  margin: 2em 0;
+}
+#editquantity > button {
+  flex-basis: 30%;
+  background-color: inherit;
+  border: none;
+}
+#editquantity > div {
+  flex-basis: 40%;
   text-align: center;
 }
 </style>

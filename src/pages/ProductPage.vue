@@ -11,9 +11,13 @@
           <li class="price">{{ product.price }}원</li>
         </ul>
         <div>남은 수량 : {{ product.inventory }}개</div>
-        <EditQuantity v-bind:product="product"></EditQuantity>
-        
-        {{ $store.getters.getcartProducts[product.id] }}
+        <div id="editquantity">
+          <button @click="subOrder(product)">-</button>
+          <div>
+            {{ $store.getters.getcartProductsthis(product).quantity }}
+          </div>
+          <button @click="addOrder(product)">+</button>
+        </div>
         <div class="total">총합계 : {{ $store.getters.getcartProductsthis(product).itemtotalprice }}원</div>
       </div>
     </div>
@@ -65,18 +69,22 @@
 </template>
 
 <script>
-import EditQuantity from "@/components/EditQuantity.vue";
 export default {
   name: "ProductPage",
-  components: {
-    EditQuantity
-  },
   data() {
     const index = this.$route.params.contentId;
     return {
       product: this.$store.state.products[index],
     };
   },
+  methods: {
+    addOrder(product) {
+      this.$store.dispatch("addOrder", product);
+    },
+    subOrder(product) {
+      this.$store.dispatch("subOrder", product);
+    }
+  }
 };
 </script>
 
@@ -117,6 +125,25 @@ export default {
   font-size: 1.6em;
   text-align: right;
 }
+
+#editquantity {
+  flex-basis: 20%;
+  display: flex;
+  max-width: 80px;
+  border: 1px solid lightgray;
+  height: 2em;
+  margin: 2em 0;
+}
+#editquantity > button {
+  flex-basis: 30%;
+  background-color: inherit;
+  border: none;
+}
+#editquantity > div {
+  flex-basis: 40%;
+  text-align: center;
+}
+
 #productdetail {
   margin-top: 3em;
 }

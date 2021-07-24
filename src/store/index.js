@@ -120,13 +120,16 @@ export const store = new Vuex.Store({
         addOrder({state, commit}, product) {
         	//제품의 남은 수량이 있을 경우
             if ( product.inventory > 0 ) { 
+                const productItem = state.products.find(item => item.id === product.id);
                 const cartItem = state.cart.find(item => item.productId === product.id);
                 if (!cartItem) {
-                    commit('pushProductToCart', product); //추가할 제품이 쇼핑 카트의 제품과 일치하지 않을 경우, 장바구니에 새로 추가
+                    commit('pushProductToCart', productItem); //추가할 제품이 쇼핑 카트의 제품과 일치하지 않을 경우, 장바구니에 새로 추가
                 } else {
+                    if( product.inventory > 0 ) {
                     commit('incrementItemQuantity', cartItem); //일치할 경우, 쇼핑 카트의 제품 수량을 증가}
+                    }
                 }
-                commit('decrementProductInventory', product); //남은 수량 -1
+                commit('decrementProductInventory', productItem); //남은 수량 -1
                 commit('incrementItemTotalPrice', cartItem); //가격변경
             }
             else {
@@ -194,7 +197,7 @@ export const store = new Vuex.Store({
                         itemtotalprice: 0,
                     }
                 } else return {
-                    productId: product.id,
+                    id: product.id,
                     title: product.title,
                     price: product.price,
                     inventory: product.inventory,
@@ -202,16 +205,6 @@ export const store = new Vuex.Store({
                     itemtotalprice: cartItem.itemtotalprice,
                 };
             });
-        },
-        cartTotal(getters) {
-            let total = 0;
-            getters.getcartProducts.forEach(cartItem => {
-                total += cartItem.price * cartItem.quantity;
-            });
-            return total;
-        },
-        getproductReview:(state) => (productItem) => {
-            return state.reviews.filter(reviewItem => reviewItem.productId === productItem.id);
         },
         getcartProductsthis:(state) => (productItem) => {
             const cartItem = state.cart.find(item => item.productId === productItem.id);
@@ -228,8 +221,15 @@ export const store = new Vuex.Store({
                 itemtotalprice: cartItem.itemtotalprice,
             };
         },
-        getIsInCart:(getters) => (productItem) => {
-            console.log(getters.getcartProducts)
+        getproductReview:(state) => (productItem) => {
+            return state.reviews.filter(reviewItem => reviewItem.productId === productItem.id);
+        },
+        cartTotal(state) {
+            let total = 0;
+            state.cart.forEach(cartItem => {
+                total += cartItem.itemtotalprice;
+            });
+            return total;
         },
     },
 })
