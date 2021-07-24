@@ -12,10 +12,12 @@
         </ul>
         <div>남은 수량 : {{ product.inventory }}개</div>
         <EditQuantity v-bind:product="product"></EditQuantity>
-        <div class="total">총합계 : {{ $store.getters.cartTotal }}원</div>
+        
+        {{ $store.getters.getcartProducts[product.id] }}
+        <div class="total">총합계 : {{ $store.getters.getcartProductsthis(product).itemtotalprice }}원</div>
       </div>
     </div>
-
+    
     <div id="productdetail">
       <b-card no-body>
         <b-tabs card>
@@ -72,9 +74,9 @@ export default {
   data() {
     const index = this.$route.params.contentId;
     return {
-      product: this.$store.state.products[index]
+      product: this.$store.state.products[index],
     };
-  }
+  },
 };
 </script>
 

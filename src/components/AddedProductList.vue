@@ -6,7 +6,7 @@
           <div>전체선택 | 선택삭제</div>
         </div>
         <div
-          v-if="$store.getters.cartProducts.length === 0"
+          v-if="$store.getters.getcartProducts.length === 0"
           class="shopped-item"
         >
           장바구니에 담은 상품이 없습니다.
@@ -15,14 +15,16 @@
           v-else
           class="shopped-item"
           :key="index"
-          v-for="(cartproduct, index) in $store.getters.cartProducts"
+          v-for="(cartproduct, index) in $store.getters.getcartProducts"
         >
           <div class="shopped-imgtitle">
             <img src="../assets/images/dogfood.jpg" />
             <div class="shopped-title">{{ cartproduct.title }}</div>
           </div>
           <EditQuantity v-bind:product="cartproduct"></EditQuantity>
-          <div class="shopped-total">{{ $store.getters.cartTotal }}원</div>
+          <div class="shopped-price">
+            {{ $store.getters.getcartProducts[cartproduct].itemtotalprice }}원
+          </div>
         </div>
       </div>
     </div>

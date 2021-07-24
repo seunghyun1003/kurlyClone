@@ -1,11 +1,8 @@
 <template>
   <div id="editquantity">
     <button @click="subOrder(product)">-</button>
-    <div v-if="$store.getters.cartProducts.length === 0">
-      0
-    </div>
-    <div v-else>
-      {{ $store.getters.cartProducts[0].quantity }}
+    <div>
+      {{ $store.getters.getcartProductsthis(product).quantity }}
     </div>
     <button @click="addOrder(product)">+</button>
   </div>
@@ -16,11 +13,11 @@ export default {
   name: "EditQuantity",
   props: ["product"],
   methods: {
-    addOrder(cartproduct) {
-      this.$store.dispatch("addOrder", cartproduct);
+    addOrder(product) {
+      this.$store.dispatch("addOrder", product);
     },
-    subOrder(cartproduct) {
-      this.$store.dispatch("subOrder", cartproduct);
+    subOrder(product) {
+      this.$store.dispatch("subOrder", product);
     }
   }
 };

@@ -25,7 +25,7 @@ export const store = new Vuex.Store({
                 price: 20000,
                 productimg: require("../assets/images/dogfood.jpg"),
                 infoimg: require("../assets/images/dogfood-info.jpg"),
-                inventory: 10,
+                inventory: 8,
             },
             {
                 id: 2,
@@ -64,7 +64,26 @@ export const store = new Vuex.Store({
                 inventory: 0,
             },
         ],
-        cart: [],
+        cart: [
+            {
+                productId: 0,
+                title: "강아지 사료",
+                price: 15000,
+                inventory: 8,
+                quantity: 2,
+                productimg: require("../assets/images/dogfood.jpg"),
+                itemtotalprice: 30000,
+            },
+            {
+                productId: 1,
+                title: "고양이 사료",
+                price: 20000,
+                inventory: 9,
+                quantity: 1,
+                productimg: require("../assets/images/dogfood.jpg"),
+                itemtotalprice: 20000,
+            },
+        ],
         reviews: [
             {
                 productId: 0,
@@ -101,33 +120,43 @@ export const store = new Vuex.Store({
         addOrder({state, commit}, product) {
         	//제품의 남은 수량이 있을 경우
             if ( product.inventory > 0 ) { 
-                const cartItem = state.cart.find(item => item.id === product.id);
+                const cartItem = state.cart.find(item => item.productId === product.id);
                 if (!cartItem) {
-                    commit('pushProductToCart', product.id); //추가할 제품이 쇼핑 카트의 제품과 일치하지 않을 경우, 장바구니에 새로 추가
+                    commit('pushProductToCart', product); //추가할 제품이 쇼핑 카트의 제품과 일치하지 않을 경우, 장바구니에 새로 추가
                 } else {
-                    if (product.inventory > 0){
-                        commit('incrementItemQuantity', cartItem); //일치할 경우, 쇼핑 카트의 제품 수량을 증가}
-                    }
+                    commit('incrementItemQuantity', cartItem); //일치할 경우, 쇼핑 카트의 제품 수량을 증가}
                 }
                 commit('decrementProductInventory', product); //남은 수량 -1
+                commit('incrementItemTotalPrice', cartItem); //가격변경
+            }
+            else {
+                alert("남은수량 없음");
             }
         },
         //'-'버튼 클릭 시
         subOrder({state, commit}, product) {
         	//쇼핑 카트에 담긴 아이템이 있을 경우
-            const cartItem = state.cart.find(item => item.id === product.id);
+            const cartItem = state.cart.find(item => item.productId === product.id);
             if (cartItem.quantity > 0) {
-            commit('decrementItemQuantity', cartItem); //쇼핑 카트의 제품 수량 -1
-            commit('incrementProductInventory', product); //남은 수량 +1
+                commit('decrementItemQuantity', cartItem); //쇼핑 카트의 제품 수량 -1
+                commit('incrementProductInventory', product); //남은 수량 +1
+                commit('decrementItemTotalPrice', cartItem); //가격변경
+            }
+            else {
+                alert("장바구니에 담은 수량 없음");
             }
         }
     },
     mutations: {
         //쇼핑 카트에 제품을 추가
-        pushProductToCart(state, productId) { 
+        pushProductToCart(state, product) { 
             state.cart.push({
-                id: productId,
-                quantity: 1
+                productId: product.id,
+                title: product.title,
+                price: product.price,
+                quantity: 1,
+                inventory: product.inventory,
+                itemtotalprice: product.price,
             });
         },
         //쇼핑 카트의 아이템 수량 증가
@@ -146,30 +175,61 @@ export const store = new Vuex.Store({
         decrementProductInventory(state, product) { 
             product.inventory--;
         },
+        //가격변경
+        incrementItemTotalPrice(state, cartItem) {
+            cartItem.itemtotalprice += cartItem.price;
+        },
+        //가격변경
+        decrementItemTotalPrice(state, cartItem) {
+            cartItem.itemtotalprice -= cartItem.price;
+        },
     },
     getters: {
-        cartProducts(state) {
+        getcartProducts(state) {
             return state.cart.map(cartItem => {
-                const product = state.products.find(product => product.id === cartItem.id);
-                return {
-                    id: product.id,
+                const product = state.products.find(product => product.id === cartItem.productId);
+                if(product === undefined) {
+                    return {
+                        quantity: 0,
+                        itemtotalprice: 0,
+                    }
+                } else return {
+                    productId: product.id,
                     title: product.title,
                     price: product.price,
                     inventory: product.inventory,
                     quantity: cartItem.quantity,
-                    productimg: product.productimg,
+                    itemtotalprice: cartItem.itemtotalprice,
                 };
             });
         },
-        cartTotal(state, getters) {
+        cartTotal(getters) {
             let total = 0;
-            getters.cartProducts.forEach(cartItem => {
+            getters.getcartProducts.forEach(cartItem => {
                 total += cartItem.price * cartItem.quantity;
             });
             return total;
         },
         getproductReview:(state) => (productItem) => {
             return state.reviews.filter(reviewItem => reviewItem.productId === productItem.id);
+        },
+        getcartProductsthis:(state) => (productItem) => {
+            const cartItem = state.cart.find(item => item.productId === productItem.id);
+            const product = state.products.find(product => product.id === productItem.id);
+            if(cartItem === undefined) {
+                return {
+                    quantity: 0,
+                    itemtotalprice: 0,
+                }
+            }
+            return {
+                product : product.title,
+                quantity: cartItem.quantity,
+                itemtotalprice: cartItem.itemtotalprice,
+            };
+        },
+        getIsInCart:(getters) => (productItem) => {
+            console.log(getters.getcartProducts)
         },
     },
 })
