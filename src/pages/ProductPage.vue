@@ -26,11 +26,11 @@
       <b-card no-body>
         <b-tabs card>
           <b-tab no-body title="상품설명">
-            <img v-bind:src="product.infoimg"></img>
-            <img v-bind:src="product.infoimg2"></img>
+            <img v-bind:src="product.infoimg"/>
+            <img v-bind:src="product.infoimg2"/>
           </b-tab>
           <b-tab no-body title="상세정보">
-            <img v-bind:src="product.detailimg2"></img>
+            <img v-bind:src="product.detailimg2"/>
           </b-tab>
           <!-- 리뷰 뷰어 -->
           <b-tab title="후기">
@@ -54,7 +54,8 @@
             <div 
               v-else
               class="review-item"
-              v-for="review in $store.getters.getproductReview(product)"
+              v-bind:key="index"
+              v-for="(review, index) in $store.getters.getproductReview(product)"
             >
               <div class="review-item-producttitle">{{ product.title }}</div>
               <div class="review-item-reviewetitle">{{ review.reviewtitle }}</div>
@@ -84,7 +85,7 @@ export default {
     subOrder(product) {
       this.$store.dispatch("subOrder", product);
     }
-  }
+  },
 };
 </script>
 

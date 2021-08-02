@@ -17,7 +17,10 @@
           :key="index"
           v-for="(cartproduct, index) in $store.getters.getcartProducts"
         >
-          <div class="shopped-imgtitle">
+          <div 
+            class="shopped-imgtitle"
+            @click="detailshow(index)"
+          >
             <img src="../assets/images/dogfood.jpg" />
             <div class="shopped-title">{{ cartproduct.title }}</div>
           </div>
@@ -49,8 +52,16 @@ export default {
     },
     subOrder(cartproduct) {
       this.$store.dispatch("subOrder", cartproduct);
+    },
+    detailshow(index) {
+      this.$router.push({
+        name: "ProductPage",
+        params: {
+          contentId: index
+        }
+      });
     }
-  }
+  },
 };
 </script>
 
