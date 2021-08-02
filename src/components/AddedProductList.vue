@@ -67,8 +67,6 @@ export default {
 
 <style>
 #addedproductlist {
-  flex-basis: 60%;
-  text-align: left;
 }
 .table-header {
   padding-bottom: 1em;
