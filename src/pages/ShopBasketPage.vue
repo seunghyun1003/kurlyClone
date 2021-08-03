@@ -6,7 +6,9 @@
         <AddedProductList></AddedProductList>
       </div>
       <div class="basket-item2">
-        <Form></Form>
+        <Form/>
+        <OrderCheck/>
+        <OrderButton/>
       </div>
     </div>
   </div>
@@ -15,11 +17,15 @@
 <script>
 import AddedProductList from "@/components/AddedProductList.vue"
 import Form from "@/components/Form.vue"
+import OrderCheck from "@/components/OrderCheck.vue"
+import OrderButton from "@/components/OrderButton.vue"
 export default {
   name: "ShopBasketPage",
   components: {
     AddedProductList,
-    Form
+    Form,
+    OrderCheck,
+    OrderButton
   }
 };
 </script>

@@ -1,62 +1,32 @@
 <template>
   <div id="form">
-    <div class="address-form">
-      <div>
-        배송지
-      </div>
-      <div>
-        <b-modal ref="addr2-modal" hide-footer title="Using Component Methods">
-          <div class="d-block text-center">
-            <div>{{ addr1 }}</div> 
-            <div><input v-model="addr2" placeholder="나머지 주소를 입력해주세요"/></div>
-          </div>
-          <b-button class="mt-3" variant="outline-danger" block @click="hideModal">완료</b-button>
-        </b-modal>
-        <div>
-          <div v-if="addr2">
-            <div>{{ addr1 }}</div> 
-            <div>{{ addr2 }}</div>
-          </div> 
-          <div v-else>
-            배송지를 입력하세요!
-          </div>
-        </div>
-        <button class="button-style1" @click="showApi">주소 검색</button>
-      </div>
+    <div>
+      <b-icon icon="geo-alt"></b-icon>배송지
     </div>
-    <div class="amount-div">
-      <div class="amount-div-item">
-        <div>
-          상품금액
+    <div>
+      <b-modal ref="addr2-modal" hide-footer>
+        <div class="d-block">
+          <div>{{ addr1 }}</div> 
+          <div><input v-model="addr2" placeholder="나머지 주소를 입력해주세요"/></div>
         </div>
-        <div>
-          35600원
-        </div>
-      </div>
-      <div class="amount-div-item">
-        <div>
-          배송비
-        </div>
-        <div>
-          +3000원
-        </div>
-      </div>
-    </div>
-    <div class="totalamount-div">
+        <b-button class="mt-3" variant="outline-danger" block>완료</b-button>
+      </b-modal>
       <div>
-        결제예정금액
+        <div v-if="addr2">
+          <div>{{ addr1 }}</div> 
+          <div>{{ addr2 }}</div>
+        </div> 
+        <div v-else>
+          배송지를 입력하세요!
+        </div>
       </div>
-      <div>
-        38600원
-      </div>
-    </div>
-    <div class="order-button">
-      <button class="button-style2">주문하기</button>
+      <button class="button-style1" @click="showApi">주소 검색</button>
     </div>
   </div>
 </template>
 
 <script>
+import OrderCheck from "@/components/OrderCheck.vue"
 export default {
   name: "Form",
   data() {
@@ -65,6 +35,9 @@ export default {
       addr1: '',
       addr2: '',
     }
+  },
+  components: {
+    OrderCheck
   },
   methods: {
     showApi() {
@@ -103,54 +76,26 @@ export default {
 
 <style>
 #form {
-}
-.address-form{
   border: 1px solid lightgray;
   background-color: white;
   padding: 1.4em;
+  text-align: left;
+  font-size: large;
+  font-weight: bold;
 }
-.amount-div{
-  border: 1px solid lightgray;
-  width: 100%;
-  padding: 1em 2.4em;
-  background-color: rgb(240, 240, 240);
-}
-.amount-div-item{
-  width: 100%;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  padding: 0.5em 0;
-}
-.totalamount-div{
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  padding: 1.1em 2.4em;
-  border: 1px solid lightgray;
-  background-color: rgb(240, 240, 240);
-}
-.order-button{
-  background-color: white;
-  padding: 0.6em 0;
+#form > div{
+  font-size: large;
+  font-weight: bold;
+  padding-bottom: 0.5em;
 }
 .button-style1{
   background-color: inherit;
-  border: 1px solid #5f0080;
   border-radius: 0.42em;
   color: #5f0080;
   width: 100%;
   padding: 0.6em;
   font-size: small;
   margin: 1em auto 0;
-}
-.button-style2{
-  background-color: #5f0080;
-  border-radius: 0.42em;
-  color: white;
-  width: 100%;
-  padding: 1em;
-  margin-top: 1em;
   border: 1px solid #5f0080;
   font-weight: bold;
 }

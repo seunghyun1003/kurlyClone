@@ -6,28 +6,26 @@
       </a>
     </div>
     <div class="menu-nav">
-      <div class="nav-item">
-        <b-button router-link to="/bestpage">BEST</b-button>
-      </div>
-      <div class="nav-item">
-        <div class="search-form">
-          <b-form-input
-            size="sm"
-            class="mr-sm-2"
-            placeholder="Search"
-          ></b-form-input>
-          <b-button
-            router-link
-            to="/searchpage"
-            size="sm"
-            class="my-2 my-sm-0"
-            type="submit"
-          >
-            <b-icon icon="search"></b-icon>
-          </b-button>
-        </div>
+      <div>
         <b-button router-link to="/shopbasketpage">
           <b-icon icon="cart3"></b-icon>
+        </b-button>
+      </div>
+      <div class="search-form">
+        <b-form-input
+          size="sm"
+          class="mr-sm-2"
+          placeholder="검색어를 입력해주세요"
+          v-model="keyword"
+        ></b-form-input>
+        <b-button
+          router-link
+          to="/searchpage"
+          size="sm"
+          class="my-2 my-sm-0"
+          type="submit"
+        >
+          <b-icon icon="search"></b-icon>
         </b-button>
       </div>
     </div>
@@ -35,8 +33,14 @@
 </template>
 
 <script>
+import SearchRequire from "./SearchRequire.vue";
 export default {
-  name: "Nav"
+  name: "Nav",
+  data() {
+    return {
+      keyword: '',
+    }
+  },
 };
 </script>
 
@@ -51,29 +55,38 @@ export default {
 }
 .menu-nav {
   display: flex;
-  justify-content: space-between;
+  text-align:right;
   width: 1000px;
   padding: 0 1em 0.6em 1em;
+  flex-direction: row-reverse;
   margin: 0 auto;
 }
-.nav-item {
-  display: flex;
+.search-form {
+  background-color: rgb(245, 245, 245);
+  border:none;
+  border-radius: 0.7em;
 }
-.nav-item > button,
-.nav-item > a {
+.search-form > input[type=text] {
+  background-color: inherit;
+  color:rgb(220, 220, 220);;
+  font-weight: bold;
+}
+.menu-nav button,
+.menu-nav a {
   background-color: inherit;
   color: black;
   border: none;
+  padding-right: 1em;
 }
-.nav-item > button:hover,
-.nav-item > button:focus,
-.nav-item > a:hover,
-.nav-item > a:focus {
+.menu-nav button:hover,
+.menu-nav button:focus,
+.menu-nav a:hover,
+.menu-nav a:focus {
   background-color: inherit;
   border: none;
-  color: rgb(92, 37, 92);
+  color: #5f0080;
 }
-.nav-item > .search-form {
+.menu-nav > .search-form {
   display: flex;
 }
 </style>

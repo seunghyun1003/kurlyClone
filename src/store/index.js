@@ -17,6 +17,7 @@ export const store = new Vuex.Store({
                 infoimg2: require("../assets/images/dogfood-info2.jpg"),
                 detailimg2: require("../assets/images/dogfood-detail.jpg"),
                 inventory: 10,
+                selled: 2,
             },
             {
                 id: 1,

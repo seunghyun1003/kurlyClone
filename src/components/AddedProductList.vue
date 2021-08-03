@@ -13,28 +13,31 @@
         </div>
         <div
           v-else
-          class="shopped-item"
           :key="index"
           v-for="(cartproduct, index) in $store.getters.getcartProducts"
         >
-          <div 
+          <div
+            class="shopped-item"
+            v-if="cartproduct.quantity > 0">
+            <div 
             class="shopped-imgtitle"
             @click="detailshow(index)"
-          >
-            <img src="../assets/images/dogfood.jpg" />
-            <div class="shopped-title">{{ cartproduct.title }}</div>
-          </div>
-          <div id="editquantity">
-            <button @click="subOrder(cartproduct)">-</button>
-            <div>
-              {{ cartproduct.quantity }}
+              >
+                <img src="../assets/images/dogfood.jpg" />
+                <div class="shopped-title">{{ cartproduct.title }}</div>
+              </div>
+              <div id="editquantity">
+                <button @click="subOrder(cartproduct)">-</button>
+                <div>
+                  {{ cartproduct.quantity }}
+                </div>
+                <button @click="addOrder(cartproduct)">+</button>
+              </div>
+              <div class="shopped-price">
+                {{ cartproduct.itemtotalprice }}원
+              </div>
             </div>
-            <button @click="addOrder(cartproduct)">+</button>
           </div>
-          <div class="shopped-price">
-            {{ cartproduct.itemtotalprice }}원
-          </div>
-        </div>
         <div class="shopped-total">
           총 가격 :  {{ $store.getters.cartTotal }}원
         </div>

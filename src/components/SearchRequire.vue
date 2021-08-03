@@ -2,11 +2,11 @@
   <div id="searchrequire">
     <div class="search-form-title">검색조건</div>
     <div class="search-form-input">
-      <b-form-input placeholder="Search" id="input-default"></b-form-input>
+      <b-form-input id="input-default">{{keyword}}</b-form-input>
     </div>
     <div class="search-form-button">
       <button>
-        검색하기
+        검색
       </button>
     </div>
   </div>
@@ -14,7 +14,8 @@
 
 <script>
 export default {
-  name: "SearchRequire",
+  name: "searchrequire",
+  props: ['keyword'],
   data() {},
   methods: {}
 };
@@ -24,8 +25,8 @@ export default {
 #searchrequire {
   display: flex;
   width: 100%;
-  border-top: 2px solid purple;
-  border-bottom: 2px solid purple;
+  border-top: 2px solid #5f0080;
+  border-bottom: 2px solid #5f0080;
   padding: 1.5em;
   justify-content: space-evenly;
   margin-bottom: 3em;
@@ -48,7 +49,9 @@ export default {
 .search-form-button > button {
   width: 100%;
   height: 2.375em;
-  background-color: purple;
+  background-color: #5f0080;
+  border: 1px solid #5f0080;
+  border-radius: 0.4em;
   color: white;
   font-weight: 600;
 }
