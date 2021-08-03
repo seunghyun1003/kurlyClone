@@ -42,11 +42,6 @@ export default {
   flex-basis: 36%;
   height: auto;
 }
-@media screen (max-width: 1000px){
-  .shopbasket-contents{
-    flex-direction: columns;
-  }
-}
 .second-title{
   font-size: 1.6em;
   font-weight: bold;
