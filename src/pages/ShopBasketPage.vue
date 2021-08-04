@@ -14,20 +14,27 @@
             <b-modal id="modal" ref="addr2-modal" hide-footer title="상세 주소 입력" centered>
               <div class="d-block">
                 <div class="d-addr1">{{ addr.addr1 }}</div> 
-                <div class="d-addr2"><input type="text" required v-model="addr.addr2" placeholder="나머지 주소를 입력해주세요"/></div>
+                <div class="d-addr2">
+                  <input 
+                  type="text" 
+                  required 
+                  v-model="addr.addr2" 
+                  @keyup.enter="setAddress(addr)"
+                  placeholder="나머지 주소를 입력해주세요"/>
+                </div>
               </div>
               <div class="d-btns">
-                <b-button type="reset" @click="onReset">리셋</b-button>
-                <b-button type="submit" variant="primary" @click="onSubmit">완료</b-button>
+                <b-button type="reset" @click="addr.addr2 = '';">리셋</b-button>
+                <b-button type="submit" variant="primary" @click="setAddress(addr)">저장</b-button>
               </div> 
             </b-modal>
             <div>
-              <div v-if="addr.addr2">
-                <div>{{ addr.addr1 }}&nbsp;[{{ addr.zip }}]</div> 
-                <div>{{ addr.addr2 }}</div>
+              <div v-if="$store.state.ordersheet.addr === ''">
+                배송지를 입력하세요!
               </div> 
               <div v-else>
-                배송지를 입력하세요!
+                <div>{{ $store.state.ordersheet.addr.addr1 }}&nbsp;[{{ $store.state.ordersheet.addr.zip }}]</div> 
+                <div>{{ $store.state.ordersheet.addr.addr2 }}</div>
               </div>
             </div>
             <button class="button-style1" @click="showApi">주소 검색</button>
@@ -66,6 +73,7 @@ export default {
     showApi() {
         new window.daum.Postcode({ 
             oncomplete: (data) => {
+                this.addr.addr2 = '';
                 let fullRoadAddr = data.roadAddress; // 도로명 주소 변수 
                 let extraRoadAddr = ''; // 도로명 조합형 주소 변수
 
@@ -93,12 +101,9 @@ export default {
             }
         }).open()
     },
-    onSubmit(event) {
+    setAddress(addr) {
+      this.$store.dispatch("setAddress", addr);
       this.$bvModal.hide('modal')
-    },
-    onReset(event) {
-      // Reset our form values
-      this.addr.addr2 = '';
     },
   },
 };

@@ -2,7 +2,7 @@
   <div id="orderbutton">
     <div class="order-button">
         <div v-if="$store.getters.cartTotal > 0">
-            <button class="button-style2" @click="order(addr)">주문하기</button>
+            <button class="button-style2" @click="order()">주문하기</button>
         </div>
         <div v-else>
             <button class="button-style3">상품을 담아주세요</button>
@@ -20,8 +20,8 @@ export default {
     }
   },
   methods: {
-    order(addr) {
-      this.$store.dispatch("order",addr);
+    order() {
+      this.$store.dispatch("order");
       this.$router.push('/order'); 
     },
   },

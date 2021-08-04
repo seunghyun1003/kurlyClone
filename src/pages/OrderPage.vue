@@ -7,20 +7,20 @@
           주문상품
         </h4>
         <div class="ordered-items">
-          <div :key="index" v-for="(cartproduct, index) in $store.getters.getcartProducts">
+          <div :key="index" v-for="(orderproduct, index) in $store.state.ordersheet.orderProduct">
             <div
               class="shopped-item"
-              v-if="cartproduct.quantity > 0">
+              v-if="orderproduct.quantity > 0">
               <div 
               class="shopped-imgtitle"
               @click="detailshow(index)"
                 >
                 <img src="../assets/images/dogfood.jpg" />
-                <div class="shopped-title">{{ cartproduct.title }}</div>
+                <div class="shopped-title">{{ orderproduct.title }}</div>
               </div>
-              <div class="shopped-price">{{ cartproduct.quantity }}개</div>
+              <div class="shopped-price">{{ orderproduct.quantity }}개</div>
               <div class="shopped-price">
-                {{ cartproduct.itemtotalprice }}원
+                {{ orderproduct.itemtotalprice }}원
               </div>
             </div>
           </div>
@@ -31,7 +31,7 @@
           배송 정보
         </h4> 
         <div>
-          <div>배송지 : {{ $store.state.ordersheet[0].addr1 }}&nbsp;[{{ $store.state.ordersheet[0].zip }}]&nbsp;{{ $store.state.ordersheet[0].addr2 }}</div>
+          <div>배송지 : {{ $store.state.ordersheet.addr.addr1 }}&nbsp;[{{ $store.state.ordersheet.addr.zip }}]&nbsp;{{ $store.state.ordersheet.addr.addr2 }}</div>
         </div>
       </div>
       <div class="ordersheet-item">

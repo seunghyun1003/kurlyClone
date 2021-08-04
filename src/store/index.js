@@ -96,7 +96,10 @@ export const store = new Vuex.Store({
                 reviewedate: "21.07.21",
             }
         ],
-        ordersheet: []
+        ordersheet: {
+            addr: '',
+            orderProduct: '',
+        }
     },
     actions: {
         //'+'버튼 클릭 시
@@ -133,9 +136,13 @@ export const store = new Vuex.Store({
             }
         },
         //'주문하기'버튼 클릭 시
-        order({commit},addr) {
-            commit('saveOrderAddress',addr);
+        order({commit}) {
+            commit('saveOrderAddress');
+        },
+        setAddress({commit},addr) {
+            commit("setAddress", addr);
         }
+
     },
     mutations: {
         //쇼핑 카트에 제품을 추가
@@ -173,14 +180,14 @@ export const store = new Vuex.Store({
         decrementItemTotalPrice(state, cartItem) {
             cartItem.itemtotalprice -= cartItem.price;
         },
+        setAddress(state, addr) {
+            console.log("setAddress");
+            console.log("addr ", addr);
+            state.ordersheet.addr = addr;
+        },
         //주문서에 주소,장바구니 제품 추가
-        saveOrderAddress(state, addr) { 
-            state.ordersheet.push({
-                zip: addr.zip,
-                addr1: addr.addr1,
-                addr2: addr.addr2,
-                orderProduct: state.cart,
-            });
+        saveOrderAddress(state) { 
+            state.ordersheet.orderProduct = state.cart;
         },
     },
     getters: {

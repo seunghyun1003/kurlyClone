@@ -1,7 +1,7 @@
 <template>
   <div id="nav">
     <div class="logo">
-      <button @click="$router.push('/')">
+      <button @click="$router.push('/').catch(()=>{});">
         <img src="../assets/images/logo.png"/>
       </button>
     </div>
