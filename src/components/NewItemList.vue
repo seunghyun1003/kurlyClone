@@ -11,7 +11,7 @@
       </div>
       <div class="product-info">
         <li class="product-info-title">{{ product.title }}</li>
-        <li class="product-info-price">{{ product.price }}</li>
+        <li class="product-info-price">{{ product.price }}원</li>
       </div>
     </div>
   </div>
@@ -48,7 +48,6 @@ export default {
   flex-basis: 23%;
   height: 300px;
   margin: 1%;
-  background-color: lightgray;
   display: flex;
   flex-direction: column;
 }
@@ -61,7 +60,7 @@ export default {
   height: 100%;
 }
 .product-info {
-  text-align: left;
+  text-align: center;
   height: 20%;
   padding: 2% 0;
 }

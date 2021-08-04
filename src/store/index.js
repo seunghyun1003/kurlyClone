@@ -65,26 +65,7 @@ export const store = new Vuex.Store({
                 inventory: 0,
             },
         ],
-        cart: [
-            {
-                productId: 0,
-                title: "강아지 사료",
-                price: 15000,
-                inventory: 8,
-                quantity: 2,
-                productimg: require("../assets/images/dogfood.jpg"),
-                itemtotalprice: 30000,
-            },
-            {
-                productId: 1,
-                title: "고양이 사료",
-                price: 20000,
-                inventory: 9,
-                quantity: 1,
-                productimg: require("../assets/images/dogfood.jpg"),
-                itemtotalprice: 20000,
-            },
-        ],
+        cart: [],
         reviews: [
             {
                 productId: 0,
@@ -115,6 +96,7 @@ export const store = new Vuex.Store({
                 reviewedate: "21.07.21",
             }
         ],
+        ordersheet: []
     },
     actions: {
         //'+'버튼 클릭 시
@@ -149,6 +131,10 @@ export const store = new Vuex.Store({
             else {
                 alert("장바구니에 담은 수량 없음");
             }
+        },
+        //'주문하기'버튼 클릭 시
+        order({commit},addr) {
+            commit('saveOrderAddress',addr);
         }
     },
     mutations: {
@@ -186,6 +172,15 @@ export const store = new Vuex.Store({
         //가격변경
         decrementItemTotalPrice(state, cartItem) {
             cartItem.itemtotalprice -= cartItem.price;
+        },
+        //주문서에 주소,장바구니 제품 추가
+        saveOrderAddress(state, addr) { 
+            state.ordersheet.push({
+                zip: addr.zip,
+                addr1: addr.addr1,
+                addr2: addr.addr2,
+                orderProduct: state.cart,
+            });
         },
     },
     getters: {

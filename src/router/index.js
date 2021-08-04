@@ -5,6 +5,7 @@ import SearchPage from '@/pages/SearchPage'
 import BestPage from '@/pages/BestPage'
 import ProductPage from '@/pages/ProductPage'
 import ShopBasketPage from '@/pages/ShopBasketPage'
+import OrderPage from '@/pages/OrderPage'
 
 Vue.use(Router)
 
@@ -34,6 +35,11 @@ export default new Router({
       path: '/shopbasketpage',
       name: 'ShopBasketPage',
       component: ShopBasketPage
+    },
+    {
+      path: '/order',
+      name: 'OrderPage',
+      component: OrderPage
     },
   ]
 })

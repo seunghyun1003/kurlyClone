@@ -23,21 +23,21 @@
             class="shopped-imgtitle"
             @click="detailshow(index)"
               >
-                <img src="../assets/images/dogfood.jpg" />
-                <div class="shopped-title">{{ cartproduct.title }}</div>
+              <img src="../assets/images/dogfood.jpg" />
+              <div class="shopped-title">{{ cartproduct.title }}</div>
+            </div>
+            <div id="editquantity">
+              <button @click="subOrder(cartproduct)">-</button>
+              <div>
+                {{ cartproduct.quantity }}
               </div>
-              <div id="editquantity">
-                <button @click="subOrder(cartproduct)">-</button>
-                <div>
-                  {{ cartproduct.quantity }}
-                </div>
-                <button @click="addOrder(cartproduct)">+</button>
-              </div>
-              <div class="shopped-price">
-                {{ cartproduct.itemtotalprice }}원
-              </div>
+              <button @click="addOrder(cartproduct)">+</button>
+            </div>
+            <div class="shopped-price">
+              {{ cartproduct.itemtotalprice }}원
             </div>
           </div>
+        </div>
         <div class="shopped-total">
           총 가격 :  {{ $store.getters.cartTotal }}원
         </div>

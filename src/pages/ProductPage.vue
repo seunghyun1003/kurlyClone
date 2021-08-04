@@ -84,7 +84,7 @@ export default {
     },
     subOrder(product) {
       this.$store.dispatch("subOrder", product);
-    }
+    },
   },
 };
 </script>

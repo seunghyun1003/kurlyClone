@@ -1,9 +1,9 @@
 <template>
   <div id="nav">
     <div class="logo">
-      <a href="/">
-        <img src="../assets/images/logo.png" />
-      </a>
+      <button @click="$router.push('/')">
+        <img src="../assets/images/logo.png"/>
+      </button>
     </div>
     <div class="menu-nav">
       <div>
@@ -49,7 +49,11 @@ export default {
   border-bottom: 1px solid lightgray;
   margin-top: 1em;
 }
-.logo > img {
+.logo > button {
+  border: none;
+  background-color: inherit;
+}
+.logo img {
   width: auto;
   height: 80px;
 }
