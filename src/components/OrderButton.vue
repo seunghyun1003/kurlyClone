@@ -1,7 +1,7 @@
 <template>
   <div id="orderbutton">
     <div class="order-button">
-        <div v-if="$store.getters.cartTotal > 0">
+        <div v-if="$store.getters.cartTotal > 0"> 
             <button class="button-style2" @click="order()">주문하기</button>
         </div>
         <div v-else>
