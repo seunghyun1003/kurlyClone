@@ -38,8 +38,7 @@ export default {
   name: "Nav",
   data() {
     return {
-      keyword: '',
-      isResultShow: true,
+      keyword: ''
     }
   },
   methods: {
@@ -53,6 +52,7 @@ export default {
           },
         });
         this.keyword = ''
+        console.log('"',keyword,'"' + ' 검색')
       } else {
         alert('검색어를 입력해주세요!')
       }
@@ -89,7 +89,7 @@ export default {
 }
 .search-form > input[type=text] {
   background-color: inherit;
-  color:rgb(220, 220, 220);;
+  color:rgb(48, 48, 48);;
   font-weight: bold;
 }
 .menu-nav button,
