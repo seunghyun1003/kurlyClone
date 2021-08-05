@@ -17,9 +17,12 @@ export default new Router({
       component: MainPage
     },
     {
-      path: '/searchpage',
+      path: '/search/:keyword?',
       name: 'SearchPage',
-      component: SearchPage
+      component: SearchPage,
+      params: {
+        keyword: this.keyword,
+      },
     },
     {
       path: '/bestpage',

@@ -27,9 +27,9 @@
 export default {
   name: "OrderCheck",
   data() {
-      return {
-          shippingfee: 0,
-      }
+    return {
+        shippingfee: 0,
+    }
   },
   computed: {
     computeShippingFee() {

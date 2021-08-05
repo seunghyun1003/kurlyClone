@@ -15,15 +15,16 @@
         <b-form-input
           size="sm"
           class="mr-sm-2"
+          type="text"
           placeholder="검색어를 입력해주세요"
           v-model="keyword"
+          @keyup.enter="searchresultshow(keyword)"
         ></b-form-input>
         <b-button
-          router-link
-          to="/searchpage"
           size="sm"
           class="my-2 my-sm-0"
           type="submit"
+          @click="searchresultshow(keyword)"
         >
           <b-icon icon="search"></b-icon>
         </b-button>
@@ -33,14 +34,30 @@
 </template>
 
 <script>
-import SearchRequire from "./SearchRequire.vue";
 export default {
   name: "Nav",
   data() {
     return {
       keyword: '',
+      isResultShow: true,
     }
   },
+  methods: {
+    searchresultshow(keyword) {
+      if (keyword !== ''){
+        this.$router.push({
+          name: "SearchPage",
+          params: {
+            keyword: this.keyword,
+            isResultShow: true,
+          },
+        });
+        this.keyword = ''
+      } else {
+        alert('검색어를 입력해주세요!')
+      }
+    },
+  }
 };
 </script>
 

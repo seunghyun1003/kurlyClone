@@ -234,5 +234,9 @@ export const store = new Vuex.Store({
             });
             return total;
         },
+        getFilteredProduct:(state) => (keyword) => {
+            const filtered = state.products.filter((object) => object.title.toLowerCase().includes(keyword.toLowerCase()) || object.description.toLowerCase().includes(keyword.toLowerCase()));
+            if (filtered) return filtered;
+        },
     },
 })
